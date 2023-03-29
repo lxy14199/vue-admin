@@ -5,7 +5,6 @@ import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import { getToken } from '@/utils/auth' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
-import getAsyncRoutes from '@/utils/asyncRouter'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
@@ -37,24 +36,8 @@ router.beforeEach(async(to, from, next) => {
           // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
           const { roles } = await store.dispatch('user/getInfo')
           console.log(roles)
-          const asyncRoutes = [
-            {
-              path: '/permission',
-              component: 'Layout',
-              redirect: '/permission/page',
-              alwaysShow: true, // will always show the root menu
-              name: 'Permission',
-              meta: {
-                title: 'permission',
-                icon: 'lock',
-                roles: ['admin', 'editor'] // you can set roles in root nav
-              }
-            }
-          ]
-
-          const res = getAsyncRoutes(asyncRoutes)
           // generate accessible routes map based on roles
-          const accessRoutes = await store.dispatch('permission/generateRoutes', [roles, res])
+          const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
           console.log(accessRoutes)
           // dynamically add accessible routes
           router.addRoutes(accessRoutes)

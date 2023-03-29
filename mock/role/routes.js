@@ -79,7 +79,7 @@ const asyncRoutes = [
     redirect: '/permission/index',
     alwaysShow: true,
     meta: {
-      title: 'permission',
+      title: '职位管理',
       icon: 'lock',
       roles: ['admin', 'editor']
     },
@@ -104,9 +104,9 @@ const asyncRoutes = [
       {
         path: 'role',
         component: 'views/permission/role',
-        name: 'RolePermission',
+        name: '添加职位',
         meta: {
-          title: 'rolePermission',
+          title: '添加职位',
           roles: ['admin']
         }
       }

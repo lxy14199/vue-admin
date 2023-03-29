@@ -3,7 +3,7 @@
 import Layout from '@/layout'
 export function getAsyncRoutes(routes) {
   console.log(routes)
-  const res = []
+  const res = []  
   // 定义路由中需要的自定名
   const keys = ['path', 'name', 'children', 'redirect', 'meta', 'hidden']
   // 遍历路由数组去重组可用的路由
