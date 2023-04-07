@@ -96,13 +96,16 @@ export default {
   },
   computed: {},
   watch: {},
-  created() {},
-  mounted() {},
+  created() {
+
+  },
+  mounted() {
+
+  },
   methods: {
     submitForm() {
       this.$refs['vForm'].validate(valid => {
         if (!valid) return
-        // TODO: 提交表单
       })
     },
     resetForm() {

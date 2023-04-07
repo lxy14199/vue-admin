@@ -16,28 +16,52 @@ const users = {
     name: 'Super Admin',
     menu: [
       {
-        path: '/user',
-        component: 'layout/Layout',
-        // redirect: '/user/index',
-        meta: { title: '员工管理', icon: 'icon', noCache: true },
-        children: [
+        'id': 1,
+        'createAt': '2023-03-30T03:12:09.907Z',
+        'updateAt': '2023-03-30T03:12:09.907Z',
+        'parentId': 0,
+        'path': '/user',
+        'name': 'userIndex',
+        'component': 'layout/Layout',
+        'sort': 1,
+        'children': [
           {
-            path: 'manage',
-            component: 'views/user/user-manage',
-            name: 'UserManage',
-            meta: { title: '添加员工' }
+            'id': 3,
+            'createAt': '2023-03-30T03:12:09.929Z',
+            'updateAt': '2023-03-30T03:12:09.929Z',
+            'parentId': 1,
+            'path': 'manage',
+            'name': 'UserManage',
+            'component': 'views/user/user-manage',
+            'sort': 0,
+            'meta': {
+              'title': '添加员工',
+              'icon': ''
+            }
           },
           {
-            path: 'list',
-            component: 'views/user/user-list',
-            name: 'UserList',
-            meta: { title: '员工列表' }
+            'id': 4,
+            'createAt': '2023-03-30T03:12:09.949Z',
+            'updateAt': '2023-03-30T03:12:09.949Z',
+            'parentId': 1,
+            'path': 'list',
+            'name': 'UserList',
+            'component': 'views/user/user-list',
+            'sort': 0,
+            'meta': {
+              'title': '员工列表',
+              'icon': ''
+            }
           }
-        ]
+        ],
+        'meta': {
+          'title': '员工管理',
+          'icon': 'icon'
+        }
       },
       {
-        path: '/permission',
-        component: 'layout/Layout',
+        'path': '/permission',
+        'component': 'layout/Layout',
         redirect: '/permission/index',
         alwaysShow: true,
         meta: {
@@ -72,19 +96,19 @@ const users = {
         ]
       },
       {
-        path: '/department',
-        component: 'layout/Layout',
-        meta: {
-          title: '部门管理',
-          icon: 'component'
+        'path': '/department',
+        'component': 'layout/Layout',
+        'meta': {
+          'title': '部门管理',
+          'icon': 'component'
         },
-        children: [
+        'children': [
           {
-            path: 'list',
-            component: 'views/department/list',
-            name: 'list',
-            meta: {
-              title: '部门列表'
+            'path': 'list',
+            'component': 'views/department/list',
+            'name': 'list',
+            'meta': {
+              'title': '部门列表'
             }
           }
         ]

@@ -20,7 +20,12 @@
       </el-table-column>
       <el-table-column min-width="120px" label="职位">
         <template slot-scope="scope">
-          <span>{{ scope.row.role }}</span>
+          <span>{{ scope.row.role.name }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column min-width="120px" label="部门">
+        <template slot-scope="scope">
+          <span>{{ scope.row.dept.name }}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="操作" width="300px">

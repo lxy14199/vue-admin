@@ -78,14 +78,31 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/documentation',
+    path: '/test',
     component: Layout,
+    mate: { title: '测试' },
     children: [
       {
         path: 'index',
         component: () => import('@/views/documentation/index'),
         name: 'Documentation',
         meta: { title: 'documentation', icon: 'documentation', affix: true }
+      },
+      {
+        path: 'file',
+        component: () => import('@/views/file/file-manage'),
+        name: 'file',
+        meta: { title: '网盘系统', icon: 'documentation' }
+      },
+      {
+        path: 'auth',
+        component: () => import('@/views/auth/auth-manage'),
+        meta: { title: '权限', icon: 'documentation', affix: true }
+      },
+      {
+        path: 'auth/add',
+        component: () => import('@/views/auth/add-menu'),
+        meta: { title: '添加路由', icon: 'documentation' }
       }
     ]
   },
@@ -112,6 +129,18 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/profile/index'),
         name: 'Profile',
+        meta: { title: 'profile', icon: 'user', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/auth',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/auth/auth-manage'),
+        name: 'auth-manage',
         meta: { title: 'profile', icon: 'user', noCache: true }
       }
     ]
