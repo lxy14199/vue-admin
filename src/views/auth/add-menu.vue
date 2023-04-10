@@ -18,7 +18,7 @@
     </el-form-item>
     <el-form-item label="路由名称" prop="name">
       <el-input
-        v-model="menu.routerName"
+        v-model="menu.name"
         maxlength="40"
         placeholder="路由名称"
         show-word-limit
@@ -36,26 +36,38 @@
     </el-form-item>
     <el-form-item label="组件路径" prop="component">
       <el-input
-        v-model="menu.componentPath"
+        v-model="menu.component"
         maxlength="40"
         placeholder="组件路径"
         show-word-limit
         type="text"
       />
     </el-form-item>
-
+    <el-form-item class="text-right">
+      <el-button :loading="loading" type="primary" @click="onSubmit()">
+        确认
+      </el-button>
+    </el-form-item>
   </el-form>
 
 </template>
 
 <script>
-import { getIdName } from '@/api/menu'
+import { getIdName, submitMenu, getMenu } from '@/api/menu'
+
+const defaultFrom = {
+  title: '',
+  icon: '',
+  parentId: 0,
+  name: '',
+  component: ''
+}
 
 export default {
   name: 'AddMenu',
   data() {
     return {
-      menu: {},
+      menu: defaultFrom,
       rules: {
         title: [
           { required: true, message: '请输入名称', trigger: 'blur' },
@@ -74,19 +86,60 @@ export default {
           { required: true, message: '请输入路由路径', trigger: 'blur' }
         ]
       },
-      menuIdNames: []
+      menuIdNames: [],
+      loading: false,
+      isEdit: false
+    }
+  },
+  watch: {
+    $route(to, from) {
+      console.log('watch $route')
+      this.init()
     }
   },
   created() {
-    this.getName()
+    console.log('created')
+    this.init()
   },
   methods: {
+    init() {
+      console.log(this.$route)
+      this.getName()
+      if (this.$route.query && this.$route.query.id) {
+        this.isEdit = true
+        this.getMenu(this.$route.query.id)
+      } else {
+        this.menu = { ...defaultFrom }
+      }
+    },
     getName() {
       getIdName().then(result => {
         if (result.code === 20000) {
           this.menuIdNames = result.data
+          this.menuIdNames.push({ id: 0, name: '根路由' })
         }
       })
+    },
+    getMenu(id) {
+      getMenu(id).then(result => {
+        if (result.code === 20000) {
+          this.menu = result.data
+        }
+      })
+    },
+    onSubmit() {
+      if (this.isEdit) {
+        //
+      } else {
+        submitMenu(this.menu).then(result => {
+          if (result.code === 20000) {
+            this.$message({
+              type: 'success',
+              message: result.message
+            })
+          }
+        })
+      }
     }
   }
 }

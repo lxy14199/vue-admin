@@ -59,7 +59,13 @@
             <i class="el-icon-s-operation" />
             <template>
               <el-dropdown-menu>
-                <el-dropdown-item>编辑</el-dropdown-item>
+                <el-dropdown-item>
+                  <template v-if="scope.row.type===1">
+                    <router-link :to="{path:'edit', query: {id: scope.row.id}}">
+                      编辑
+                    </router-link>
+                  </template>
+                </el-dropdown-item>
                 <el-dropdown-item>删除</el-dropdown-item>
               </el-dropdown-menu>
             </template>

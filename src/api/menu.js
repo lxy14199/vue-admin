@@ -13,3 +13,19 @@ export function getIdName() {
     method: 'get'
   })
 }
+
+export function submitMenu(data) {
+  return request({
+    url: '/menu',
+    method: 'post',
+    data: data
+  })
+}
+
+export function getMenu(id) {
+  return request({
+    url: '/menu',
+    method: 'get',
+    params: { id: id }
+  })
+}

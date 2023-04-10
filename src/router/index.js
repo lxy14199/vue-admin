@@ -100,9 +100,24 @@ export const constantRoutes = [
         meta: { title: '权限', icon: 'documentation', affix: true }
       },
       {
-        path: 'auth/add',
+        path: 'auth/menu',
         component: () => import('@/views/auth/add-menu'),
         meta: { title: '添加路由', icon: 'documentation' }
+      },
+      {
+        path: 'auth/api',
+        component: () => import('@/views/auth/add-api'),
+        meta: { title: '添加Api', icon: 'documentation' }
+      },
+      {
+        path: 'role',
+        component: () => import('@/views/role/role-view'),
+        meta: { title: '添加职位', icon: 'documentation' }
+      },
+      {
+        path: 'role/list',
+        component: () => import('@/views/role/role-manage'),
+        meta: { title: '职位列表', icon: 'documentation' }
       }
     ]
   },
@@ -142,6 +157,13 @@ export const constantRoutes = [
         component: () => import('@/views/auth/auth-manage'),
         name: 'auth-manage',
         meta: { title: 'profile', icon: 'user', noCache: true }
+      },
+      {
+        path: 'edit',
+        component: () => import('@/views/auth/add-menu'),
+        name: 'auth-add',
+        meta: { title: '修改路由', icon: 'user', noCache: true },
+        hidden: true
       }
     ]
   }
