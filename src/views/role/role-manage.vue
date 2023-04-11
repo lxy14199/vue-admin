@@ -27,7 +27,11 @@
             <i class="el-icon-s-operation" />
           </el-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>编辑</el-dropdown-item>
+            <el-dropdown-item>
+              <router-link :to="'/test/role?id='+scope.row.id">
+                编辑
+              </router-link>
+            </el-dropdown-item>
             <el-dropdown-item>删除</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>

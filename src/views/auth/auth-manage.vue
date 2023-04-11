@@ -100,38 +100,4 @@ export default {
     }
   }
 }
-// {
-//   id: 1,
-//   name: '人员管理',
-//   icon: 'el-icon-share',
-//   routerName: 'user',
-//   routerPath: '/user',
-//   componentPath: '',
-//   resourcePath: '',
-//   requestMethod: '',
-//   type: 1,
-//   children: [
-//     {
-//       id: 2,
-//       name: '人员管理',
-//       icon: 'el-icon-share',
-//       routerName: 'user',
-//       routerPath: '/user',
-//       componentPath: '',
-//       resourcePath: '',
-//       requestMethod: '',
-//       type: 1,
-//       children: [
-//         {
-//           id: 3,
-//           name: 'api',
-//           requestMethod: 'get',
-//           type: 2,
-//           comment: '说明'
-//         }
-//       ]
-//     }
-//   ]
-// }
-
 </script>
