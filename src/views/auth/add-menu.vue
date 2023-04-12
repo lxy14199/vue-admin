@@ -60,7 +60,8 @@ const defaultFrom = {
   icon: '',
   parentId: 0,
   name: '',
-  component: ''
+  component: '',
+  path: ''
 }
 
 export default {
@@ -135,7 +136,7 @@ export default {
           if (result.code === 20000) {
             this.$message({
               type: 'success',
-              message: result.message
+              message: result.msg
             })
           }
         })

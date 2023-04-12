@@ -78,63 +78,6 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/test',
-    component: Layout,
-    mate: { title: '测试' },
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/documentation/index'),
-        name: 'Documentation',
-        meta: { title: 'documentation', icon: 'documentation', affix: true }
-      },
-      {
-        path: 'file',
-        component: () => import('@/views/file/file-manage'),
-        name: 'file',
-        meta: { title: '网盘系统', icon: 'documentation' }
-      },
-      {
-        path: 'auth',
-        component: () => import('@/views/auth/auth-manage'),
-        meta: { title: '权限', icon: 'documentation', affix: true }
-      },
-      {
-        path: 'auth/menu',
-        component: () => import('@/views/auth/add-menu'),
-        meta: { title: '添加路由', icon: 'documentation' }
-      },
-      {
-        path: 'auth/api',
-        component: () => import('@/views/auth/add-api'),
-        meta: { title: '添加Api', icon: 'documentation' }
-      },
-      {
-        path: 'role',
-        component: () => import('@/views/role/role-view'),
-        meta: { title: '添加职位', icon: 'documentation' }
-      },
-      {
-        path: 'role/list',
-        component: () => import('@/views/role/role-manage'),
-        meta: { title: '职位列表', icon: 'documentation' }
-      }
-    ]
-  },
-  {
-    path: '/guide',
-    component: Layout,
-    redirect: '/guide/index',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/guide/index'),
-        name: 'Guide',
-        meta: { title: 'guide', icon: 'guide', noCache: true }
-      }
-    ]
-  },
-  {
     path: '/profile',
     component: Layout,
     redirect: '/profile/index',
@@ -147,26 +90,26 @@ export const constantRoutes = [
         meta: { title: 'profile', icon: 'user', noCache: true }
       }
     ]
-  },
-  {
-    path: '/auth',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/auth/auth-manage'),
-        name: 'auth-manage',
-        meta: { title: 'profile', icon: 'user', noCache: true }
-      },
-      {
-        path: 'edit',
-        component: () => import('@/views/auth/add-menu'),
-        name: 'auth-add',
-        meta: { title: '修改路由', icon: 'user', noCache: true },
-        hidden: true
-      }
-    ]
   }
+  // {
+  //   path: '/auth',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/auth/auth-manage'),
+  //       name: 'auth-manage',
+  //       meta: { title: 'profile', icon: 'user', noCache: true }
+  //     },
+  //     {
+  //       path: 'edit',
+  //       component: () => import('@/views/auth/add-menu'),
+  //       name: 'auth-add',
+  //       meta: { title: '修改路由', icon: 'user', noCache: true },
+  //       hidden: true
+  //     }
+  //   ]
+  // }
 ]
 
 /**

@@ -30,3 +30,19 @@ export function setRoleApi(data) {
     data: data
   })
 }
+
+export function deleteAuth(params) {
+  return request({
+    url: '/auth',
+    method: 'delete',
+    params: params
+  })
+}
+
+export function setAuth(data) {
+  return request({
+    url: '/auth',
+    method: 'post',
+    data: data
+  })
+}

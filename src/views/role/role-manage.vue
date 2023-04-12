@@ -28,7 +28,7 @@
           </el-button>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
-              <router-link :to="'/test/role?id='+scope.row.id">
+              <router-link :to="'/role/add?id='+scope.row.id">
                 编辑
               </router-link>
             </el-dropdown-item>

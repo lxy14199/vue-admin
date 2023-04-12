@@ -32,7 +32,7 @@
 <script>
 import { getList } from '@/api/menu'
 import { addRole } from '@/api/role'
-import { getRoleDetail, setRoleApi, setRoleMenu } from '@/api/auth'
+import { getRoleDetail, setAuth } from '@/api/auth'
 export default {
   name: 'RoleView',
   data() {
@@ -144,31 +144,28 @@ export default {
         for (let i = 0; i < auth.length; i++) {
           const node = auth[i]
           if (node.type === 1) {
-            this.menuIds.push(node.id)
+            this.menuIds.push({ id: node.id, type: 1 })
           } else {
-            this.apiIds.push(node.id)
+            this.apiIds.push({ id: node.id, type: 2 })
           }
         }
         if (valid) {
           if (this.edit) {
             const roleId = parseInt(this.$route.query.id)
-            let success = true
-            setRoleApi({ roleId: roleId, apiIds: this.apiIds }).then(result => {
-              if (result.code !== 20000) {
-                success = false
-              }
-            })
-            setRoleMenu({ roleId: roleId, menuIds: this.menuIds }).then(result => {
-              if (result.code !== 20000) {
-                success = false
-              }
-            })
-            if (success) {
-              this.$message({
-                message: '修改成功',
-                type: 'success'
-              })
+            const submitData = {
+              roleId: roleId,
+              Auth: []
             }
+            submitData.Auth.push(...this.menuIds)
+            submitData.Auth.push(...this.apiIds)
+            setAuth(submitData).then(result => {
+              if (result.code === 20000) {
+                this.$message({
+                  message: result.msg,
+                  type: 'success'
+                })
+              }
+            })
           } else {
             addRole(this.role).then(result => {
             // this.traverseTree(auth)
