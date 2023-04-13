@@ -31,7 +31,7 @@
 
 <script>
 import { getList } from '@/api/menu'
-import { addRole } from '@/api/role'
+import { addRole, updateRole } from '@/api/role'
 import { getRoleDetail, setAuth } from '@/api/auth'
 export default {
   name: 'RoleView',
@@ -158,14 +158,23 @@ export default {
             }
             submitData.Auth.push(...this.menuIds)
             submitData.Auth.push(...this.apiIds)
+            let success = true
             setAuth(submitData).then(result => {
-              if (result.code === 20000) {
-                this.$message({
-                  message: result.msg,
-                  type: 'success'
-                })
+              if (result.code !== 20000) {
+                success = false
               }
             })
+            updateRole({ id: roleId, name: this.role.name, introduction: this.role.introduction }).then(result => {
+              if (result.code !== 20000) {
+                success = false
+              }
+            })
+            if (success) {
+              this.$message({
+                message: '修改成功',
+                type: 'success'
+              })
+            }
           } else {
             addRole(this.role).then(result => {
             // this.traverseTree(auth)

@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="announcement">
-      <li v-for="(announcement, index) in announcements" :key="index" class="list">
+      <li v-for="(announcement, index) in announcements" :key="index" class="list" @click="visitAnnoucenment(announcement)">
         <div class="flex-between">
           <div class="flex-start">
             <i class="el-icon-document" />
@@ -15,7 +15,7 @@
 
       </li>
     </ul>
-    <el-dialog v-model="dialogVisible" :title="dialogValue.title" center>
+    <el-dialog :visible.sync="dialogVisible" :title="dialogValue.title" center>
       <span>
         {{ dialogValue.content }}
       </span>
@@ -45,7 +45,7 @@ export default {
       announcements: [],
       page: 1,
       size: 0,
-      dialogValue: '',
+      dialogValue: {},
       dialogVisible: false,
       pageSize: 10
     }
@@ -67,6 +67,11 @@ export default {
     },
     handlePageChange() {
 
+    },
+    visitAnnoucenment(announcement) {
+      // console.log('121123123')
+      this.dialogVisible = true
+      this.dialogValue = announcement
     }
   }
 }

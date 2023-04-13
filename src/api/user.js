@@ -22,7 +22,7 @@ export function getDeptUser(data) {
 
 export function logout() {
   return request({
-    url: '/vue-element-admin/user/logout',
+    url: '/user/logout',
     method: 'post'
   })
 }

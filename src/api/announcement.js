@@ -8,10 +8,11 @@ export function addAnnoucement(data) {
   })
 }
 
-export function getAnnoucement() {
+export function getAnnoucement(params) {
   return request({
-    url: '/annoucemet',
-    method: 'get'
+    url: '/annoucement',
+    method: 'get',
+    params: params
   })
 }
 

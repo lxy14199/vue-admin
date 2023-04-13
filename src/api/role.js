@@ -22,9 +22,9 @@ export function addRole(data) {
   })
 }
 
-export function updateRole(id, data) {
+export function updateRole(data) {
   return request({
-    url: `/vue-element-admin/role/${id}`,
+    url: `/role`,
     method: 'put',
     data
   })

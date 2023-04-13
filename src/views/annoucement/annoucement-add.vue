@@ -26,7 +26,13 @@
 </template>
 
 <script>
-import { addAnnoucement } from '@/api/announcement'
+import { addAnnoucement, getAnnoucement, updateAnnoucement } from '@/api/announcement'
+
+const annoucementForm = {
+  title: '',
+  content: ''
+}
+
 export default {
   name: 'AnnoucenmentAdd',
   data() {
@@ -49,18 +55,41 @@ export default {
       edit: false
     }
   },
+  watch: {
+    $route(from, to) {
+      this.init()
+    }
+  },
   created() {
-
+    this.init()
   },
   methods: {
+    init() {
+      if (this.$route.query && this.$route.query.id) {
+        this.edit = true
+        getAnnoucement({ id: this.$route.query.id }).then(result => {
+          if (result.code === 20000) {
+            this.announcement = result.data
+          }
+        })
+      } else {
+        this.announcement = annoucementForm
+      }
+    },
     onSubmit(announcement) {
       this.$refs[announcement].validate((valid) => {
         if (valid) {
           this.loading = true
           if (this.edit) {
-            // todo
+            updateAnnoucement(this.announcement).then(result => {
+              if (result.code === 20000) {
+                this.$message({
+                  message: result.msg,
+                  type: 'success'
+                })
+              }
+            }).finally(() => { this.loading = false })
           } else {
-            // todo
             addAnnoucement(this.announcement).then(result => {
               if (result.code === 20000) {
                 this.$message({
