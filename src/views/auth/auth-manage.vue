@@ -47,14 +47,6 @@
       </el-table-column>
       <el-table-column align="center" label="操作" width="50px">
         <template slot-scope="scope">
-          <!-- <router-link :to="'/dept/edit/'+scope.row.id">
-            <el-button type="primary" size="small" icon="el-icon-edit">
-              编辑
-            </el-button>
-            <el-button type="primary" size="small" icon="el-icon-edit">
-              删除
-            </el-button>
-          </router-link> -->
           <el-dropdown trigger="click" @command="handleCommand($event,scope.row)">
             <i class="el-icon-s-operation" />
             <template>
@@ -77,7 +69,6 @@
 </template>
 
 <script>
-// import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 import { getList } from '@/api/menu'
 export default {
   name: 'ArticleList',
@@ -95,8 +86,24 @@ export default {
     getList() {
       getList().then(result => {
         this.list = result.data.list
-        // alert(this.list)
+        // this.changeId(this.list)
+        for (let i = 0; i < this.list.length; i++) {
+          this.changeId(this.list[i])
+        }
+        console.log(this.list)
       })
+    },
+    changeId(data) {
+      data.id = data.id + 100000 * data.type
+      console.log(data.id)
+      if (data.children && data.children.length > 0) {
+        for (let i = 0; i < data.children.length; i++) {
+          this.changeId(data.children[i])
+        }
+      }
+    },
+    generateRowKey() {
+      return Date.now() + Math.random()
     }
   }
 }

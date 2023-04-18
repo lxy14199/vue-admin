@@ -32,7 +32,7 @@
                 编辑
               </router-link>
             </el-dropdown-item>
-            <el-dropdown-item>删除</el-dropdown-item>
+            <el-dropdown-item command="delete">删除</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </template>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { getRoles } from '@/api/role'
+import { getRoles, deleteRole } from '@/api/role'
 
 export default {
   name: 'RoleManage',
@@ -58,6 +58,25 @@ export default {
       getRoles().then(result => {
         if (result.code === 20000) {
           this.roles = result.data.list
+        }
+      })
+    },
+    handleCommand(command, row) {
+      switch (command) {
+        case 'delete':
+          this.deleteRole(row)
+          break
+      }
+    },
+    deleteRole(row) {
+      deleteRole(row.id).then(result => {
+        if (result.code === 20000) {
+          const index = this.roles.indexOf(row)
+          this.roles.splice(index, 1)
+          this.$message({
+            message: '删除成功',
+            type: 'success'
+          })
         }
       })
     }

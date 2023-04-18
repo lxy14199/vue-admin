@@ -29,10 +29,10 @@
         </div>
       </div>
     </el-card>
-    <div class="flex-between search-box">
+    <!-- <div class="flex-between search-box">
       <el-input />
       <el-button type="primary" icon="el-icon-search">搜索</el-button>
-    </div>
+    </div> -->
     <el-table ref="table" :data="files" border empty-text="空文件夹" style="width: 100%" @row-click="enterFiles">
       <el-table-column label="名称">
         <template slot-scope="scope">
@@ -88,8 +88,8 @@
               <i class="el-icon-s-operation" />
             </el-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>重命名</el-dropdown-item>
-              <el-dropdown-item>删除</el-dropdown-item>
+              <el-dropdown-item command="rename">重命名</el-dropdown-item>
+              <el-dropdown-item command="delete">删除</el-dropdown-item>
               <el-dropdown-item :disabled="scope.row.type === '文件夹'" command="download">下载</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -101,7 +101,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { upload, getFiles, createFile, download } from '@/api/file'
+import { upload, getFiles, createFile, download, deleteFile, rename } from '@/api/file'
 export default {
   data() {
     return {
@@ -110,10 +110,6 @@ export default {
         name: '根目录'
       }],
       files: [
-        {
-          name: '文件',
-          type: '文件夹'
-        }
       ]
     }
   },
@@ -206,18 +202,54 @@ export default {
         }
       })
     },
+    deleteFile(row) {
+      deleteFile({ id: row.id }).then(result => {
+        if (result.code === 20000) {
+          const index = this.files.indexOf(row)
+          this.files.splice(index, 1)
+          this.$message({
+            message: '删除文件成功',
+            type: 'success'
+          })
+        }
+      })
+    },
+    rename(file) {
+      this.$prompt('请输入修改后名称', '重命名', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(({ value }) => {
+        const data = {
+          'id': file.id,
+          'name': value
+        }
+        rename(data).then(result => {
+          if (result.code === 20000) {
+            this.$message({
+              showClose: true,
+              message: '成功',
+              type: 'success'
+            })
+            this.getFiles(this.paths[this.paths.length - 1].id)
+          }
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消输入'
+        })
+      })
+    },
     handleCommand(command, row) {
       switch (command) {
         case 'download':
           this.download(row)
           break
+        case 'delete':
+          this.deleteFile(row)
+          break
         case 'rename':
-          break
-        case 'remove':
-          break
-        case 'share':
-          break
-        case 'stopShare':
+          this.rename(row)
           break
       }
     }

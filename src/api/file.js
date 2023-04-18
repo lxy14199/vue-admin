@@ -31,3 +31,19 @@ export function download(params) {
     params: params
   })
 }
+
+export function deleteFile(params) {
+  return request({
+    url: '/file',
+    method: 'delete',
+    params: params
+  })
+}
+
+export function rename(data) {
+  return request({
+    url: '/file/rename',
+    method: 'put',
+    data: data
+  })
+}

@@ -9,7 +9,7 @@
 
       <el-table-column width="200px" align="center" label="用户名">
         <template slot-scope="scope">
-          <span>{{ scope.row.name }}</span>
+          <span>{{ scope.row.username }}</span>
         </template>
       </el-table-column>
 
@@ -25,43 +25,31 @@
       </el-table-column>
       <el-table-column min-width="120px" label="部门">
         <template slot-scope="scope">
-          <span>{{ scope.row.dept.name }}</span>
+          <span>{{ scope.row.department.name }}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="操作" width="300px">
         <template slot-scope="scope">
-          <router-link :to="'/example/edit/'+scope.row.id">
-            <el-button type="primary" size="small" icon="el-icon-edit">
+          <div>
+            <!-- <el-button type="primary" size="small" icon="el-icon-edit">
               修改
-            </el-button>
-            <el-button type="primary" size="small" icon="el-icon-edit">
+            </el-button> -->
+            <el-button type="primary" size="small" icon="el-icon-edit" @click="deleteUser(scope.row)">
               删除
             </el-button>
-          </router-link>
+          </div>
         </template>
       </el-table-column>
     </el-table>
 
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
   </div>
 </template>
 
 <script>
-import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
+import { getUserList, deleteUser } from '@/api/user'
 
 export default {
   name: 'ArticleList',
-  components: { Pagination },
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'info',
-        deleted: 'danger'
-      }
-      return statusMap[status]
-    }
-  },
   data() {
     return {
       list: null,
@@ -70,6 +58,11 @@ export default {
       listQuery: {
         page: 1,
         limit: 20
+      },
+      query: {
+        roleId: 0,
+        departmentId: 0,
+        username: ''
       }
     }
   },
@@ -78,7 +71,24 @@ export default {
   },
   methods: {
     getList() {
-
+      getUserList(this.query).then(result => {
+        if (result.code === 20000) {
+          this.list = result.data.list
+        }
+      })
+    },
+    deleteUser(row) {
+      console.log(1111)
+      deleteUser({ id: row.id }).then(result => {
+        if (result.code === 20000) {
+          const index = this.list.indexOf(row)
+          this.list.splice(index, 1)
+          this.$message({
+            message: '删除成功',
+            type: 'success'
+          })
+        }
+      })
     }
   }
 }

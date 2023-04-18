@@ -30,14 +30,16 @@
       </el-table-column>
       <el-table-column align="center" label="操作" width="400px">
         <template slot-scope="scope">
-          <router-link :to="'/dept/edit/'+scope.row.id">
+          <div>
             <el-button type="primary" size="small" icon="el-icon-edit">
-              编辑
+              <router-link :to="'/department/add?id='+scope.row.id">
+                编辑
+              </router-link>
             </el-button>
-            <el-button type="primary" size="small" icon="el-icon-edit">
+            <el-button type="primary" size="small" icon="el-icon-edit" @click="deleteDept(scope.row)">
               删除
             </el-button>
-          </router-link>
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -48,7 +50,7 @@
 
 <script>
 // import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
-import { getList } from '@/api/dept'
+import { getList, deleteDept } from '@/api/dept'
 export default {
   name: 'ArticleList',
   filters: {
@@ -86,6 +88,18 @@ export default {
         this.list = response.data.list
         this.total = response.data.total
         this.listLoading = false
+      })
+    },
+    deleteDept(row) {
+      deleteDept({ ids: [row.id] }).then(result => {
+        if (result.code === 20000) {
+          const index = this.list.indexOf(row)
+          this.list.splice(index, 1)
+          this.$message({
+            message: '删除成功',
+            type: 'success'
+          })
+        }
       })
     }
   }

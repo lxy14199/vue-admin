@@ -26,3 +26,27 @@ export function logout() {
     method: 'post'
   })
 }
+
+export function getUserList(data) {
+  return request({
+    url: '/user/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function saveUser(data) {
+  return request({
+    url: '/user',
+    method: 'post',
+    data: data
+  })
+}
+
+export function deleteUser(params) {
+  return request({
+    url: '/user',
+    method: 'delete',
+    params: params
+  })
+}
